@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        
+
+        h1 {
+            color: #d32f2f;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .search-filter {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #d32f2f;
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+        }
+
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .category-btn:hover {
+            border-color: #d32f2f;
+            color: #d32f2f;
+        }
+
+        .category-btn.active {
+            background: #d32f2f;
+            color: white;
+            border-color: #d32f2f;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .menu-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            color: #d32f2f;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #d32f2f;
+        }
+
+        .menu-item {
+            padding: 15px;
+            margin-bottom: 12px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .menu-item:hover {
+            background: #fff3e0;
+            border-left-color: #ff6f00;
+            transform: translateX(5px);
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .item-name-ar {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 5px;
+        }
+
+        .item-price {
+            color: #d32f2f;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .no-results.show {
+            display: block;
+        }
+        .header {
+          display: flex;
+          flex-direction: column;   /* ⬅️ logo above text */
+          align-items: center;       /* ⬅️ vertical alignment */
+          gap: 10px;
+          text-align: center;
+        }
+
+
+        .logo {
+            width: 100px;   /* adjust as needed */
+            height: 10;
+        }
+
+
+        @media (max-width: 1200px) {
+            .menu-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 0;
+            }
+
+            header {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+          
+
+            .search-filter {
+                padding: 15px;
+            }
+
+            .search-box {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+
+            .category-filters {
+                justify-content: center;
+            }
+
+            .category-btn {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .menu-section {
+                padding: 20px 15px;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+            }
+
+            .menu-item {
+                padding: 12px;
+            }
+
+            .item-name {
+                font-size: 1em;
+            }
+
+            .item-price {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            header p {
+                font-size: 0.9em;
+            }
+
+            .section-title {
+                font-size: 1.3em;
+            }
+
+            .category-btn {
+                padding: 7px 12px;
+                font-size: 12px;
+            }
+
+            .menu-item {
+                padding: 10px;
+            }
+
+            /* Make pizza table stack on very small screens */
+            .menu-item div[style*="grid-template-columns: repeat(4"] {
+                grid-template-columns: 1fr !important;
+                gap: 5px !important;
+            }
+
+            .menu-item div[style*="grid-template-columns: 2fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 5px !important;
+            }
+
+            /* Labels for pizza sizes on mobile */
+            .menu-item[style*="display: grid"] > div > div:not(.item-name):not(.item-name-ar):not(.item-price) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="za3tarwjebnehlogo.png" alt="Za3tar w Jebneh Logo" class="logo">
+            <div>
+            <h1>Za3tar w Jebneh</h1>
+            </div>
+        </header>
+
+        <div class="search-filter">
+            <input type="text" class="search-box" id="searchBox" placeholder="Search for items...">
+            <div class="category-filters">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="kaak">Kaak</button>
+                <button class="category-btn" data-category="fresh-baked">Fresh Baked</button>
+                <button class="category-btn" data-category="sandwiches">Sandwiches</button>
+                <button class="category-btn" data-category="pizza">Pizza</button>
+                <button class="category-btn" data-category="mini">Mini Fresh Baked</button>
+                <button class="category-btn" data-category="drinks">Drinks</button>
+            </div>
+        </div>
+
+        <div class="menu-grid" id="menuGrid">
+            <!-- KAAK Section -->
+            <div class="menu-section" data-category="kaak">
+                <h2 class="section-title">KAAK</h2>
+                <div class="menu-item">
+                    <div class="item-name">Cheese</div>
+                    <div class="item-name-ar">جبنة</div>
+                    <div class="item-price">200,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Cheese + Vegetables</div>
+                    <div class="item-name-ar">جبنة + خضرا</div>
+                    <div class="item-price">250,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Cheese + Jambon</div>
+                    <div class="item-name-ar">جبنة + جمبون</div>
+                    <div class="item-price">300,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Pizza Kaake</div>
+                    <div class="item-name-ar">بيتزا كعكة</div>
+                    <div class="item-price">600,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Chocolate</div>
+                    <div class="item-name-ar">شوكولا</div>
+                    <div class="item-price">180,000 L.L.</div>
+                </div>
+            </div>
+
+            <!-- FRESH BAKED Section -->
+            <div class="menu-section" data-category="fresh-baked">
+                <h2 class="section-title">FRESH BAKED</h2>
+                <div class="menu-item">
+                    <div class="item-name">Thyme</div>
+                    <div class="item-name-ar">زعتر</div>
+                    <div class="item-price">70,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Thyme + Vegetables</div>
+                    <div class="item-name-ar">زعتر + خضرا</div>
+                    <div class="item-price">100,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Thyme + Cheese</div>
+                    <div class="item-name-ar">زعتر + جبنة</div>
+                    <div class="item-price">150,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Thyme + Yoghurt</div>
+                    <div class="item-name-ar">زعتر + لبنة</div>
+                    <div class="item-price">150,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Yoghurt + Vegetables</div>
+                    <div class="item-name-ar">لبنة + خضرا</div>
+                    <div class="item-price">180,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Shanklish</div>
+                    <div class="item-name-ar">شنكليش</div>
+                    <div class="item-price">200,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Ham</div>
+                    <div class="item-name-ar">لحمة</div>
+                    <div class="item-price">200,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Cheese</div>
+                    <div class="item-name-ar">جبنة</div>
+                    <div class="item-price">250,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Cheese + Vegetables</div>
+                    <div class="item-name-ar">جبنة + خضرا</div>
+                    <div class="item-price">300,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Cheese + Jambon</div>
+                    <div class="item-name-ar">جبنة + جمبون</div>
+                    <div class="item-price">300,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Cheese + Sausage</div>
+                    <div class="item-name-ar">جبنة + سجق</div>
+                    <div class="item-price">300,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Cheese + Chocolate</div>
+                    <div class="item-name-ar">جبنة + شوكولا</div>
+                    <div class="item-price">350,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Chocolate</div>
+                    <div class="item-name-ar">شوكولا</div>
+                    <div class="item-price">200,000 L.L.</div>
+                </div>
+            </div>
+
+            <!-- SANDWICHES Section -->
+            <div class="menu-section" data-category="sandwiches">
+                <h2 class="section-title">BEL 3AJIN SANDWICHES</h2>
+                <div class="menu-item">
+                    <div class="item-name">Fahita</div>
+                    <div class="item-name-ar">فاهيتا</div>
+                    <div class="item-price">600,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Submarine</div>
+                    <div class="item-price">600,000 L.L.</div>
+                </div>
+            </div>
+
+            <!-- PIZZA Section -->
+            <div class="menu-section" data-category="pizza">
+                <h2 class="section-title">PIZZA</h2>
+                <div style="margin-bottom: 15px;">
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; font-weight: bold; color: #d32f2f; margin-bottom: 10px;">
+                        <div></div>
+                        <div>MEDIUM</div>
+                        <div>LARGE</div>
+                        <div>FAMILY</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: center;">
+                        <div class="item-name">CLASSIC</div>
+                        <div class="item-price">700,000 L.L.</div>
+                        <div class="item-price">900,000 L.L.</div>
+                        <div class="item-price">1,200,000 L.L.</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: center;">
+                        <div class="item-name">MARGUERITA</div>
+                        <div class="item-price">700,000 L.L.</div>
+                        <div class="item-price">900,000 L.L.</div>
+                        <div class="item-price">1,200,000 L.L.</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: center;">
+                        <div class="item-name">PEPPERONI</div>
+                        <div class="item-price">700,000 L.L.</div>
+                        <div class="item-price">900,000 L.L.</div>
+                        <div class="item-price">1,200,000 L.L.</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: center;">
+                        <div class="item-name">PIZZA FAJITAS</div>
+                        <div class="item-price">800,000 L.L.</div>
+                        <div class="item-price">1,000,000 L.L.</div>
+                        <div class="item-price">1,300,000 L.L.</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: center;">
+                        <div class="item-name">SAUSAGE</div>
+                        <div class="item-price">800,000 L.L.</div>
+                        <div class="item-price">1,000,000 L.L.</div>
+                        <div class="item-price">1,300,000 L.L.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MINI FRESH BAKED Section -->
+            <div class="menu-section" data-category="mini">
+                <h2 class="section-title">MINI FRESH BAKED</h2>
+                <div style="margin-bottom: 15px;">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; font-weight: bold; color: #d32f2f; margin-bottom: 10px;">
+                        <div></div>
+                        <div>DZNS</div>
+                        <div>PCS</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; align-items: center;">
+                        <div>
+                            <div class="item-name">Meat with Dough</div>
+                            <div class="item-name-ar">لحم بعجين طرابلسية</div>
+                        </div>
+                        <div class="item-price">700,000 L.L.</div>
+                        <div class="item-price">60,000 L.L.</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; align-items: center;">
+                        <div>
+                            <div class="item-name">Baalbekia</div>
+                            <div class="item-name-ar">بعلبكية</div>
+                        </div>
+                        <div class="item-price">450,000 L.L.</div>
+                        <div class="item-price">40,000 L.L.</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; align-items: center;">
+                        <div>
+                            <div class="item-name">Shanklish</div>
+                            <div class="item-name-ar">شنكليش</div>
+                        </div>
+                        <div class="item-price">350,000 L.L.</div>
+                        <div class="item-price">30,000 L.L.</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; align-items: center;">
+                        <div>
+                            <div class="item-name">Hot Dog</div>
+                            <div class="item-name-ar">هوت دوغ</div>
+                        </div>
+                        <div class="item-price">450,000 L.L.</div>
+                        <div class="item-price">40,000 L.L.</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; align-items: center;">
+                        <div>
+                            <div class="item-name">Pizza</div>
+                            <div class="item-name-ar">بيتزا</div>
+                        </div>
+                        <div class="item-price">450,000 L.L.</div>
+                        <div class="item-price">40,000 L.L.</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; align-items: center;">
+                        <div>
+                            <div class="item-name">Thyme</div>
+                            <div class="item-name-ar">زعتر</div>
+                        </div>
+                        <div class="item-price">250,000 L.L.</div>
+                        <div class="item-price">20,000 L.L.</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; align-items: center;">
+                        <div>
+                            <div class="item-name">Cheese</div>
+                            <div class="item-name-ar">جبنة</div>
+                        </div>
+                        <div class="item-price">400,000 L.L.</div>
+                        <div class="item-price">40,000 L.L.</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; align-items: center;">
+                        <div>
+                            <div class="item-name">Cheese + Sausage</div>
+                            <div class="item-name-ar">جبنة + سجق</div>
+                        </div>
+                        <div class="item-price">450,000 L.L.</div>
+                        <div class="item-price">40,000 L.L.</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; align-items: center;">
+                        <div>
+                            <div class="item-name">Cheese + Ham</div>
+                            <div class="item-name-ar">جبنة + جمبون</div>
+                        </div>
+                        <div class="item-price">450,000 L.L.</div>
+                        <div class="item-price">40,000 L.L.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DRINKS Section -->
+            <div class="menu-section" data-category="drinks">
+                <h2 class="section-title">DRINKS</h2>
+                <div class="menu-item">
+                    <div class="item-name">Soft Drinks</div>
+                    <div class="item-price">30,000 / 70,000 / 80,000 L.L.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Tannourine Small Water</div>
+                    <div class="item-price">30,000 L.L.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults">
+            <h3>No items found</h3>
+            <p>Try adjusting your search or filter</p>
+        </div>
+    </div>
+
+    <script>
+        const searchBox = document.getElementById('searchBox');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const menuSections = document.querySelectorAll('.menu-section');
+        const menuGrid = document.getElementById('menuGrid');
+        const noResults = document.getElementById('noResults');
+
+        let currentCategory = 'all';
+
+        // Category filter
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.dataset.category;
+                filterMenu();
+            });
+        });
+
+        // Search functionality
+        searchBox.addEventListener('input', (e) => {
+            filterMenu();
+        });
+
+        function filterMenu() {
+            const searchTerm = searchBox.value.toLowerCase();
+            let visibleCount = 0;
+
+            menuSections.forEach(section => {
+                const category = section.dataset.category;
+                const items = section.querySelectorAll('.menu-item');
+                let sectionHasVisible = false;
+
+                // Check category filter
+                if (currentCategory !== 'all' && category !== currentCategory) {
+                    section.style.display = 'none';
+                    return;
+                }
+
+                // Check search term
+                items.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        sectionHasVisible = true;
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                section.style.display = sectionHasVisible ? 'block' : 'none';
+            });
+
+            // Show/hide no results message
+            if (visibleCount === 0) {
+                menuGrid.style.display = 'none';
+                noResults.classList.add('show');
+            } else {
+                menuGrid.style.display = 'grid';
+                noResults.classList.remove('show');
+            }
+        }
+    </script>
+</body>
+</html>
