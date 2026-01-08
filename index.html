@@ -9,6 +9,49 @@
             padding: 0;
             box-sizing: border-box;
         }
+        /* ===== DESKTOP GRIDS ===== */
+.pizza-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.mini-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ===== MOBILE FIX ===== */
+@media (max-width: 480px) {
+
+  /* PIZZA */
+  .pizza-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pizza-grid .item-price {
+    text-align: left;
+  }
+
+  /* MINI FRESH BAKED */
+  .mini-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-grid .item-price {
+    font-size: 0.95em;
+  }
+
+  /* Hide headers on mobile */
+  .pizza-header,
+  .mini-header {
+    display: none;
+  }
+}
+
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -172,6 +215,34 @@
             width: 100px;   /* adjust as needed */
             height: 10;
         }
+
+        /* ===== MINI GRID (DESKTOP) ===== */
+.mini-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ===== MOBILE: SAME AS PIZZA ===== */
+@media (max-width: 480px) {
+
+  .mini-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .mini-grid .item-price {
+    text-align: left;
+    font-size: 0.95em;
+  }
+
+  /* Hide header row */
+  .mini-header {
+    display: none;
+  }
+}
+
 
 
         @media (max-width: 1200px) {
@@ -421,10 +492,11 @@
             </div>
 
             <!-- PIZZA Section -->
+            <!-- PIZZA Section -->
             <div class="menu-section" data-category="pizza">
                 <h2 class="section-title">PIZZA</h2>
-                <div style="margin-bottom: 15px;">
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; font-weight: bold; color: #d32f2f; margin-bottom: 10px;">
+                <div class="pizza-header" style="margin-bottom: 15px;">
+                    <div class="pizza-grid" style="font-weight: bold; color: #d32f2f; margin-bottom: 10px;">
                         <div></div>
                         <div>MEDIUM</div>
                         <div>LARGE</div>
@@ -432,43 +504,43 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: center;">
+                    <div class="pizza-grid">
                         <div class="item-name">CLASSIC</div>
-                        <div class="item-price">700,000 L.L.</div>
-                        <div class="item-price">900,000 L.L.</div>
-                        <div class="item-price">1,200,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Medium: </span>700,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Large: </span>900,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Family: </span>1,200,000 L.L.</div>
                     </div>
                 </div>
                 <div class="menu-item">
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: center;">
+                    <div class="pizza-grid">
                         <div class="item-name">MARGUERITA</div>
-                        <div class="item-price">700,000 L.L.</div>
-                        <div class="item-price">900,000 L.L.</div>
-                        <div class="item-price">1,200,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Medium: </span>700,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Large: </span>900,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Family: </span>1,200,000 L.L.</div>
                     </div>
                 </div>
                 <div class="menu-item">
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: center;">
+                    <div class="pizza-grid">
                         <div class="item-name">PEPPERONI</div>
-                        <div class="item-price">700,000 L.L.</div>
-                        <div class="item-price">900,000 L.L.</div>
-                        <div class="item-price">1,200,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Medium: </span>700,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Large: </span>900,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Family: </span>1,200,000 L.L.</div>
                     </div>
                 </div>
                 <div class="menu-item">
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: center;">
+                    <div class="pizza-grid">
                         <div class="item-name">PIZZA FAJITAS</div>
-                        <div class="item-price">800,000 L.L.</div>
-                        <div class="item-price">1,000,000 L.L.</div>
-                        <div class="item-price">1,300,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Medium: </span>800,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Large: </span>1,000,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Family: </span>1,300,000 L.L.</div>
                     </div>
                 </div>
                 <div class="menu-item">
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: center;">
+                    <div class="pizza-grid">
                         <div class="item-name">SAUSAGE</div>
-                        <div class="item-price">800,000 L.L.</div>
-                        <div class="item-price">1,000,000 L.L.</div>
-                        <div class="item-price">1,300,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Medium: </span>800,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Large: </span>1,000,000 L.L.</div>
+                        <div class="item-price"><span class="mobile-label">Family: </span>1,300,000 L.L.</div>
                     </div>
                 </div>
             </div>
@@ -477,10 +549,14 @@
             <div class="menu-section" data-category="mini">
                 <h2 class="section-title">MINI FRESH BAKED</h2>
                 <div style="margin-bottom: 15px;">
-                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; font-weight: bold; color: #d32f2f; margin-bottom: 10px;">
-                        <div></div>
-                        <div>DZNS</div>
-                        <div>PCS</div>
+                    <div class="mini-header">
+  <div class="mini-grid" style="font-weight: bold; color: #d32f2f; margin-bottom: 10px;">
+    <div></div>
+    <div>DZNS</div>
+    <div>PCS</div>
+  </div>
+</div>
+
                     </div>
                 </div>
                 <div class="menu-item">
@@ -489,8 +565,8 @@
                             <div class="item-name">Meat with Dough</div>
                             <div class="item-name-ar">لحم بعجين طرابلسية</div>
                         </div>
-                        <div class="item-price">700,000 L.L.</div>
-                        <div class="item-price">60,000 L.L.</div>
+                        <div class="item-price">DZNS: 700,000 L.L.</div>
+                        <div class="item-price">PCS: 60,000 L.L.</div>
                     </div>
                 </div>
                 <div class="menu-item">
@@ -499,8 +575,8 @@
                             <div class="item-name">Baalbekia</div>
                             <div class="item-name-ar">بعلبكية</div>
                         </div>
-                        <div class="item-price">450,000 L.L.</div>
-                        <div class="item-price">40,000 L.L.</div>
+                        <div class="item-price"> DZNS: 450,000 L.L.</div>
+                        <div class="item-price">PCS: 40,000 L.L.</div>
                     </div>
                 </div>
                 <div class="menu-item">
@@ -509,8 +585,8 @@
                             <div class="item-name">Shanklish</div>
                             <div class="item-name-ar">شنكليش</div>
                         </div>
-                        <div class="item-price">350,000 L.L.</div>
-                        <div class="item-price">30,000 L.L.</div>
+                        <div class="item-price">DZNS: 350,000 L.L.</div>
+                        <div class="item-price">PCS: 30,000 L.L.</div>
                     </div>
                 </div>
                 <div class="menu-item">
@@ -519,8 +595,8 @@
                             <div class="item-name">Hot Dog</div>
                             <div class="item-name-ar">هوت دوغ</div>
                         </div>
-                        <div class="item-price">450,000 L.L.</div>
-                        <div class="item-price">40,000 L.L.</div>
+                        <div class="item-price">DZNS: 450,000 L.L.</div>
+                        <div class="item-price">PCS: 40,000 L.L.</div>
                     </div>
                 </div>
                 <div class="menu-item">
@@ -529,8 +605,8 @@
                             <div class="item-name">Pizza</div>
                             <div class="item-name-ar">بيتزا</div>
                         </div>
-                        <div class="item-price">450,000 L.L.</div>
-                        <div class="item-price">40,000 L.L.</div>
+                        <div class="item-price">DZNS: 450,000 L.L.</div>
+                        <div class="item-price">PCS: 40,000 L.L.</div>
                     </div>
                 </div>
                 <div class="menu-item">
@@ -539,8 +615,8 @@
                             <div class="item-name">Thyme</div>
                             <div class="item-name-ar">زعتر</div>
                         </div>
-                        <div class="item-price">250,000 L.L.</div>
-                        <div class="item-price">20,000 L.L.</div>
+                        <div class="item-price">DZNS: 250,000 L.L.</div>
+                        <div class="item-price">PCS: 20,000 L.L.</div>
                     </div>
                 </div>
                 <div class="menu-item">
@@ -549,8 +625,8 @@
                             <div class="item-name">Cheese</div>
                             <div class="item-name-ar">جبنة</div>
                         </div>
-                        <div class="item-price">400,000 L.L.</div>
-                        <div class="item-price">40,000 L.L.</div>
+                        <div class="item-price">DZNS: 400,000 L.L.</div>
+                        <div class="item-price">PCS: 40,000 L.L.</div>
                     </div>
                 </div>
                 <div class="menu-item">
@@ -559,8 +635,8 @@
                             <div class="item-name">Cheese + Sausage</div>
                             <div class="item-name-ar">جبنة + سجق</div>
                         </div>
-                        <div class="item-price">450,000 L.L.</div>
-                        <div class="item-price">40,000 L.L.</div>
+                        <div class="item-price">DZNS: 450,000 L.L.</div>
+                        <div class="item-price">PCS: 40,000 L.L.</div>
                     </div>
                 </div>
                 <div class="menu-item">
@@ -569,8 +645,8 @@
                             <div class="item-name">Cheese + Ham</div>
                             <div class="item-name-ar">جبنة + جمبون</div>
                         </div>
-                        <div class="item-price">450,000 L.L.</div>
-                        <div class="item-price">40,000 L.L.</div>
+                        <div class="item-price">DZNS: 450,000 L.L.</div>
+                        <div class="item-price">PCS: 40,000 L.L.</div>
                     </div>
                 </div>
             </div>
